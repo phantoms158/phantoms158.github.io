@@ -1,34 +1,98 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
 
+<html lang="en">
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!--
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  -->
+  <title>...</title>
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+  <script type="text/javascript" charset="utf-8">
+    function hasClassName(inElement, inClassName)
+    {
+        var regExp = new RegExp('(?:^|\\s+)' + inClassName + '(?:\\s+|$)');
+        return regExp.test(inElement.className);
+    }
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+    function addClassName(inElement, inClassName)
+    {
+        if (!hasClassName(inElement, inClassName))
+            inElement.className = [inElement.className, inClassName].join(' ');
+    }
 
-<link rel="stylesheet" type="text/css" href="css/flipbook.style.css">
-<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    function removeClassName(inElement, inClassName)
+    {
+        if (hasClassName(inElement, inClassName)) {
+            var regExp = new RegExp('(?:^|\\s+)' + inClassName + '(?:\\s+|$)', 'g');
+            var curClasses = inElement.className;
+            inElement.className = curClasses.replace(regExp, ' ');
+        }
+    }
 
-<script src="js/flipbook.min.js"></script>
+    function toggleClassName(inElement, inClassName)
+    {
+        if (hasClassName(inElement, inClassName))
+            removeClassName(inElement, inClassName);
+        else
+            addClassName(inElement, inClassName);
+    }
 
-<script type="text/javascript">
-
-    $(document).ready(function () {
-        $("#container").flipBook({
-            pdfUrl:"pdf/TiengNhat.pdf",
-        });
-
-    })
-</script>
-
+    function toggleShape()
+    {
+      var shape = document.getElementById('shape');
+      if (hasClassName(shape, 'ring')) {
+        removeClassName(shape, 'ring');
+        addClassName(shape, 'cube');
+      } else {
+        removeClassName(shape, 'cube');
+        addClassName(shape, 'ring');
+      }
+      
+      var stage = document.getElementById('stage');
+      if (hasClassName(shape, 'ring'))
+        stage.style.webkitTransform = 'translateZ(-200px)';
+      else
+        stage.style.webkitTransform = '';
+    }
+    function downloadLink()
+    {
+      location.href = 'http://redirect.nhq.vn/demo/3d-css.zip';
+    }
+  </script>
 </head>
-
 <body>
-<div id="container">
-    <p>Real 3D Flipbook has lightbox feature - book can be displayed in the same page with lightbox effect.</p>
-    <p>Click on a book cover to start reading.</p>
-    <img src="images/book2/thumb1.jpg" />
-</div>
 
+  <div style="text-align: right;padding: 15px;"><button onclick="toggleShape()">Đổi kiểu</button></div>
+  
+  <div id="container">
+    <div id="stage">
+      <div id="shape" class="cube backfaces">
+        <div class="plane one"></div>
+        <div class="plane two"></div>
+        <div class="plane three"></div>
+        <div class="plane four"></div>
+        <div class="plane five"></div>
+        <div class="plane six"></div>
+        <div class="plane seven"></div>
+        <div class="plane eight"></div>
+        <div class="plane nine"></div>
+        <div class="plane ten"></div>
+        <div class="plane eleven"></div>
+        <div class="plane twelve"></div>
+      </div>
+    </div>
+  </div>
+  <div style="visibility:hidden">
+  <!-- <audio controls autoplay><source src="https://zingmp3.vn/embed/song/ZWAFCBBC?start=true" type="audio/mpeg"></audio> -->
+    <iframe
+        scrolling="no"
+        width=640
+        height=180
+        src=https://zingmp3.vn/embed/song/ZW9FICD6?start=true frameborder="0" allowfullscreen="true" />
+  </div>
 </body>
-
 </html>
